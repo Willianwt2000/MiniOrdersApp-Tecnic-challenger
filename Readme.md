@@ -1,5 +1,3 @@
-Absolutely! Here's your README translated into English with properly organized headings and consistent formatting:
-
 ``` markdown
 #  Mini Orders API
 
