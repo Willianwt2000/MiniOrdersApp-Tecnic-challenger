@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.Numerics;
 
@@ -26,10 +27,10 @@ app.MapGet("/orders", () => orders);
 //OrderById
 app.MapGet("/orders/{id}", (Guid id) =>
 {
-    var unicOrder = orders.Find(order => order.Id == id);
-    if (unicOrder != null)
+    var uniqueOrder = orders.Find(order => order.Id == id);
+    if (uniqueOrder != null)
     {
-        return Results.Ok(unicOrder);
+        return Results.Ok(uniqueOrder);
     }
 
     return Results.NotFound($"No order found for ID: {id}");
@@ -68,8 +69,32 @@ app.MapPost("/orders", (Order order) =>
 
 //update order
 app.MapPut("/orders/{id}", (Guid id, Order orderUpdate) =>
+
 {
+    if (orderUpdate.Id != id)
+    {
+        return Results.BadRequest("Invalid ID.");
+    }
+
+
     var orderFound = orders.Find(order => order.Id == id);
+
+    //validation
+    if (string.IsNullOrEmpty(orderUpdate.Client))
+    {
+        return Results.BadRequest("Client is required");
+    }
+    else if (orderUpdate.Client.Length <= 2)
+    {
+        return Results.BadRequest("All characters must be higher than 2");
+
+    }
+    if (orderUpdate.Total <= 0)
+    {
+        return Results.BadRequest("Total must be higher than 0");
+    }
+
+
 
     if (orderFound != null)
     {
@@ -78,7 +103,6 @@ app.MapPut("/orders/{id}", (Guid id, Order orderUpdate) =>
 
         return Results.Ok(orderFound);
     }
-
     return Results.NotFound($"No order found for ID: {id}");
 });
 
@@ -108,7 +132,7 @@ public class Order
     public Guid Id { get; set; }
     public string Client { get; set; } = string.Empty;
     public DateTime Date { get; set; }
-
     public decimal? Total { get; set; }
 }
 
+//docs: add README file with usage instructions
