@@ -195,5 +195,70 @@ Response:
 
 ---
 
-You're all set to start using your API 
+You're all set to start using your API  
 
+
+
+
+# FRONTEND  
+
+
+
+
+
+# Order Management Frontend
+
+This is the frontend app for managing orders. You can view, create, and delete orders.
+
+
+
+## How to Run the Frontend
+
+1. Make sure you have **Node.js** installed:  
+   https://nodejs.org/
+
+2. Open your terminal.
+
+3. Go to the frontend project folder:
+   ```bash
+   cd frontend
+   cd mini-order-app
+   npm install
+   pnpm  dev
+
+
+# How to Use
+
+Click View Orders to see all orders.
+
+Click View button to see order details.
+
+Click Delete button to remove an order.
+
+Click New Order to add a new order.
+
+Fill in the client name and total, then click Create.
+
+
+
+# Reflexión personal
+
+Problemas con CORS en el Backend (.NET Core)
+
+Durante el desarrollo del backend, me encontré con problemas relacionados con CORS . Al intentar consumir la API desde el frontend (que corre en un puerto diferente), el navegador bloqueaba las peticiones por seguridad.
+
+era este el error 
+![alt text](image-1.png)
+
+Yo crei a ver llamado el metotodo de manera correcta ```app.use("AllowAll")  ``` lo que me llevo varias horas para investigar e inclusive desactivar el antivirus luego descanse y volvi a leer la documentacion y ahi me di cuenta que lo tenia escrito mal el metodo y que era de esta forma ```app.UseCors("AllowAll")``` de esa forma pude solucionar el error.
+
+
+# Problemas enfrentados con Vue.js 3 y TypeScript
+
+Reactividad y referencias (ref): Al usar Composition API con ref y reactive, no siempre es intuitivo saber cuándo acceder a .value o cuándo trabajar directamente con el objeto. Esto generó algunos errores y confusión al manipular los datos reactivos. por lo menos pude entender que es practicamente como usar un hook de react con ciertas diferencias.
+
+Manejo de eventos y binding con TypeScript Configurar correctamente los eventos y el binding de datos con tipos estrictos requirió algo de práctica. Por ejemplo, entender cómo usar ```v-model ```con tipos y cómo definir métodos en ```<script setup> ```para evitar errores de tipo fue un reto inicial.
+
+Es interesante lo del ```ref y reactive``` y sigo leyendo para comprender mas sobre sus diferencias : 
+
+Tuve un caso donde los datos no se mostraban y es decir tampoco se actualizaba busque en la documentacion alli vi el metodo ```onMounted``` funciona para ejecutar codigos cuando ya esta listo el componente y y carga los datos en pantalla , ejemplo sencillo : lo use para hacer la peticion a la API y cargo los datos cuando la pagina aparecio.
